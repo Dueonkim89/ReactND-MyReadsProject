@@ -9,19 +9,13 @@ import { Link, Route } from 'react-router-dom';
 
 class BooksApp extends React.Component {
 	state = {
-		/**
-		 * TODO: Instead of using this state variable to keep track of which page
-		 * we're on, use the URL in the browser's address bar. This will ensure that
-		 * users can use the browser's back and forward buttons to navigate between
-		 * pages, as well as provide a good URL they can bookmark and share.
-		 */
-		/** Change in select menu needs to trigger change in state.
-			Get the new value when it changes.
-			Delete that current <li>
-			Rebuild <li> to correct component based on value. 
-		**/
+		searchWord: ''
 	}
-						
+	
+	updateSearchWord = (word) => {
+		this.setState({ searchWord: word.trim() });
+	}
+							
 	render() {
 		return (
 			<div className="app"> 
@@ -57,7 +51,10 @@ class BooksApp extends React.Component {
 							However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
 							you don't find a specific author or title. Every search is limited by search terms.
 							*/}
-							<input type="text" placeholder="Search by title or author"/>
+							<input value={this.state.searchWord} type="text" 
+								placeholder="Search by title or author" 
+								onChange={(event) => {this.updateSearchWord(event.target.value)}}
+							/>
 						</div>
 						</div>
 						<div className="search-books-results">
