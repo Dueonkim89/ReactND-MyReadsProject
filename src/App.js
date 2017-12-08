@@ -1,20 +1,46 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
 import CurrentlyReadingBookShelf from './CurrentlyReading.js';
 import WantToReadBookShelf from './WantToRead.js';
 import ReadBookShelf from './Read.js';
 import { Link, Route } from 'react-router-dom';
-
+import SearchPage from './searchPage.js';
 
 class BooksApp extends React.Component {
 	state = {
+		bookList: [],
 		searchWord: ''
 	}
 	
-	updateSearchWord = (word) => {
-		this.setState({ searchWord: word.trim() });
+	updateInput = (word) => {
+		if (!word) {
+			this.setState({ bookList: [], searchWord: '' });
+		} else {
+			this.setState({ searchWord: word });
+			this.findBooks(word);				
+		}					
 	}
+	
+	findBooks = (word) => {
+		BooksAPI.search(word).then((searchResults) => {
+			console.log(searchResults);
+			this.setState({ bookList: searchResults});
+		})
+	}		
+	
+	/*To load info from server when mounted */
+	componentDidMount() {
+		console.log('page mounted');
+		/*Use booksAPI.getAll() here */
+	}
+			
+	/* Method to generate <li> for each book result (must be agnostic)*/
+	
+	/* Method to update bookshelf bind to change event 
+		from BooksApi.update method
+		Pass to searchPage, and the 3 bookshelfs
+	*/
 							
 	render() {
 		return (
@@ -39,31 +65,9 @@ class BooksApp extends React.Component {
 					</div>
 				)}/>
 				<Route exact path="/search" render={() => (
-					<div className="search-books">
-						<div className="search-books-bar"> 	
-						<Link to="/" className="close-search">Close</Link>
-						<div className="search-books-input-wrapper">
-							{/*
-							NOTES: The search from BooksAPI is limited to a particular set of search terms.
-							You can find these search terms here:
-							https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-							However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-							you don't find a specific author or title. Every search is limited by search terms.
-							*/}
-							<input value={this.state.searchWord} type="text" 
-								placeholder="Search by title or author" 
-								onChange={(event) => {this.updateSearchWord(event.target.value)}}
-							/>
-						</div>
-						</div>
-						<div className="search-books-results">
-						<ol className="books-grid">
-						{/* Create LI generating component*/}
-						
-						</ol>
-						</div>
-					</div>				
+					<SearchPage bookList={this.state.bookList} searchWord={this.state.searchWord} 
+						updateInput={this.updateInput}
+					/>
 				)}/>			
 			</div>
 		)

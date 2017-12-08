@@ -5,7 +5,6 @@ class CurrentlyReadingBookShelf extends React.Component {
 	defaultValue = "currentlyReading";
 	
 	render() {
-		console.log(this.defaultValue);
 		return (
 		   <div className="bookshelf">  
 			  <h2 className="bookshelf-title">Currently Reading</h2>
