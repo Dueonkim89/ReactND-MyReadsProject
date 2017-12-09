@@ -9,13 +9,14 @@ import SearchPage from './searchPage.js';
 
 class BooksApp extends React.Component {
 	state = {
-		bookList: [],
-		searchWord: ''
+		searchList: [],
+		searchWord: '',
+		currentShelves: []
 	}
 	
 	updateInput = (word) => {
 		if (!word) {
-			this.setState({ bookList: [], searchWord: '' });
+			this.setState({ searchList: [], searchWord: '' });
 		} else {
 			this.setState({ searchWord: word });
 			this.findBooks(word);				
@@ -25,23 +26,31 @@ class BooksApp extends React.Component {
 	findBooks = (word) => {
 		BooksAPI.search(word).then((searchResults) => {
 			console.log(searchResults);
-			this.setState({ bookList: searchResults});
+			this.setState({ searchList: searchResults });
 		})
 	}		
 	
 	/*To load info from server when mounted */
 	componentDidMount() {
-		console.log('page mounted');
-		/*Use booksAPI.getAll() here */
+		BooksAPI.getAll().then((books) => {
+			console.log(books);
+			this.setState({ currentShelves: books });
+		})
 	}
 			
-	/* Method to generate <li> for each book result (must be agnostic)*/
-	
 	/* Method to update bookshelf bind to change event 
 		from BooksApi.update method
 		Pass to searchPage, and the 3 bookshelfs
+		Also update this.setState for currentShelves
 	*/
-							
+	
+	/* DRY method to filter state.currentShelves based on shelf name 
+		MAKE SURE THIS FUNC DOES NOT ACTUALLY ALTER THE STATE. WE DONT WANT!
+	*/
+	filterCurrentShelves = (name) => {
+		this.state.currentShelves.filter((shelves) => shelves.shelf === name);
+	}
+	
 	render() {
 		return (
 			<div className="app"> 
@@ -52,9 +61,12 @@ class BooksApp extends React.Component {
 						</div>
 						<div className="list-books-content"> 
 						<div>
-							<CurrentlyReadingBookShelf />				
-							<WantToReadBookShelf />
-							<ReadBookShelf />
+							{/*Each bookshelf will receive state.currentShelves and filter it 
+								accordingly to the specific bookshelf that component is handling*/}
+							
+							<CurrentlyReadingBookShelf currentShelves={this.state.currentShelves}/>				
+							<WantToReadBookShelf currentShelves={this.state.currentShelves}/>
+							<ReadBookShelf currentShelves={this.state.currentShelves}/>
 						</div>
 						</div>
 						<div className="open-search">
@@ -65,8 +77,8 @@ class BooksApp extends React.Component {
 					</div>
 				)}/>
 				<Route exact path="/search" render={() => (
-					<SearchPage bookList={this.state.bookList} searchWord={this.state.searchWord} 
-						updateInput={this.updateInput}
+					<SearchPage searchList={this.state.searchList} searchWord={this.state.searchWord} 
+						updateInput={this.updateInput} currentShelves={this.state.currentShelves}
 					/>
 				)}/>			
 			</div>

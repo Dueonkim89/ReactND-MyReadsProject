@@ -1,12 +1,24 @@
 import React from 'react';
-import * as BooksAPI from './BooksAPI';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ListItems from './CreateListItems.js';
 
 class SearchPage extends React.Component {
-			
+	static propTypes = {
+		searchList: PropTypes.array.isRequired,
+		updateInput: PropTypes.func.isRequired,
+		searchWord: PropTypes.string.isRequired
+	}
+	
+	/* Create method that will compare this.props.currentShelves
+	to searchList and see if id exists, if so return .shelf 
+	else return 'none'
+	
+	value prop will take this method. 
+	*/
+	
 	render() {
-		const { bookList, updateInput, searchWord } = this.props;
+		const { searchList, updateInput, searchWord, currentShelves  } = this.props;
 		
 		return (			
 				<div className="search-books">
@@ -30,9 +42,8 @@ class SearchPage extends React.Component {
 					<div className="search-books-results">
 					{/*Map in array of API data to create list items for OL */}
 					<ol className="books-grid">								
-						{bookList.length > 0 && bookList.map((eachBooks, index) => (
-							console.log(eachBooks.id),
-							<ListItems key={eachBooks.id} data={eachBooks} value='none'/>
+						{searchList.length > 0 && searchList.map((eachBooks, index) => (
+							<ListItems key={index} id={eachBooks.id} data={eachBooks} value='none'/>
 						))}
 					</ol>
 					</div>
