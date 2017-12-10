@@ -1,7 +1,11 @@
 import React from 'react';
 import ListItems from './CreateListItems.js';
+import PropTypes from 'prop-types';
 
 class ReadBookShelf extends React.Component {
+	static propTypes = {
+		currentShelves: PropTypes.array.isRequired
+	}
 	
 	defaultValue = "read";
 	
@@ -14,7 +18,9 @@ class ReadBookShelf extends React.Component {
 				<ol className="books-grid">
 
 				{ currentShelves.filter((shelf) => shelf.shelf === this.defaultValue).map((eachShelf, index) => (
-					<ListItems key={index} id={eachShelf.id} data={eachShelf} value={eachShelf.shelf}/>
+					<ListItems key={index} id={eachShelf.id} data={eachShelf} currentShelves={currentShelves}
+					value={this.defaultValue}
+					/>
 				)) }				
 				
 				</ol>

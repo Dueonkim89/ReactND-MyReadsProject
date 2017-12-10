@@ -25,7 +25,6 @@ class BooksApp extends React.Component {
 	
 	findBooks = (word) => {
 		BooksAPI.search(word).then((searchResults) => {
-			console.log(searchResults);
 			this.setState({ searchList: searchResults });
 		})
 	}		
@@ -33,7 +32,6 @@ class BooksApp extends React.Component {
 	/*To load info from server when mounted */
 	componentDidMount() {
 		BooksAPI.getAll().then((books) => {
-			console.log(books);
 			this.setState({ currentShelves: books });
 		})
 	}

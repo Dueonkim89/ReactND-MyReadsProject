@@ -1,7 +1,11 @@
 import React from 'react';
 import ListItems from './CreateListItems.js';
+import PropTypes from 'prop-types';
 
 class CurrentlyReadingBookShelf extends React.Component {
+	static propTypes = {
+		currentShelves: PropTypes.array.isRequired
+	}
 	
 	defaultValue = "currentlyReading";
 	
@@ -18,7 +22,9 @@ class CurrentlyReadingBookShelf extends React.Component {
 					over new array to create the appropriate list items.		
 				*/}
 				{ currentShelves.filter((shelf) => shelf.shelf === this.defaultValue).map((eachShelf, index) => (
-					<ListItems key={index} id={eachShelf.id} data={eachShelf} value={eachShelf.shelf}/>
+					<ListItems key={index} id={eachShelf.id} data={eachShelf} currentShelves={currentShelves}
+						value={this.defaultValue}
+					/>
 				)) }
 												 			  
 				</ol>

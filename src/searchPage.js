@@ -7,15 +7,30 @@ class SearchPage extends React.Component {
 	static propTypes = {
 		searchList: PropTypes.array.isRequired,
 		updateInput: PropTypes.func.isRequired,
-		searchWord: PropTypes.string.isRequired
+		searchWord: PropTypes.string.isRequired,
+		currentShelves: PropTypes.array.isRequired
 	}
 	
-	/* Create method that will compare this.props.currentShelves
-	to searchList and see if id exists, if so return .shelf 
-	else return 'none'
+	defaultValue = "none";
 	
-	value prop will take this method. 
-	*/
+	/* Create a method that will compare currentShelves
+	to id and see if id exists, if so return currentShelves[i].shelf	
+	Else, return 'none'.
+	
+	*/	
+	
+	findProperValue = (currentShelves, id) => {
+		let find = false;
+		for (let i = 0; i<currentShelves.length; i++) {			
+			if (id === currentShelves[i].id) {	
+				find = true;
+				return currentShelves[i].shelf;
+			} 
+		}	
+		if (!find) {
+			return this.defaultValue;
+		}
+	}
 	
 	render() {
 		const { searchList, updateInput, searchWord, currentShelves  } = this.props;
@@ -43,7 +58,9 @@ class SearchPage extends React.Component {
 					{/*Map in array of API data to create list items for OL */}
 					<ol className="books-grid">								
 						{searchList.length > 0 && searchList.map((eachBooks, index) => (
-							<ListItems key={index} id={eachBooks.id} data={eachBooks} value='none'/>
+							<ListItems key={index} id={eachBooks.id} data={eachBooks} 
+							currentShelves={currentShelves} value={this.findProperValue(currentShelves, eachBooks.id)}
+							/>
 						))}
 					</ol>
 					</div>
