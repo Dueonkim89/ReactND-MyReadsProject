@@ -3,24 +3,32 @@ import PropTypes from 'prop-types';
 
 class ListItems extends React.Component {
 	static propTypes = {
-		currentShelves: PropTypes.array.isRequired,
 		data: PropTypes.object.isRequired,
-		id: PropTypes.string.isRequired
+		id: PropTypes.string.isRequired,
+		value: PropTypes.string.isRequired,
+		updateShelf: PropTypes.func.isRequired		
 	}		
 	
 	state = {
 		value: this.props.value
+	}
+
+	handleChange = (newValue, data) => {
+	//first set this.state.value to new value.
+		this.setState({ value: newValue });
+		//run second func which we will get as a prop from app.js
+		this.props.updateShelf(data, newValue);
 	}	
-		
+	
 	render() {
-		const { id, data, currentShelves, value} = this.props;
+		const { data } = this.props;
 		return (	
 				<li>
 					<div className="book">
 					<div className="book-top">
 						<div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${data.imageLinks.thumbnail})` }}></div>
 						<div className="book-shelf-changer">
-						<select value={value}>
+						<select value={this.state.value} onChange={(event) => this.handleChange(event.target.value, data)}>
 							<option value="none" disabled>Move to...</option>
 							<option value="currentlyReading">Currently Reading</option>
 							<option value="wantToRead">Want to Read</option>

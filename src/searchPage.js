@@ -8,7 +8,8 @@ class SearchPage extends React.Component {
 		searchList: PropTypes.array.isRequired,
 		updateInput: PropTypes.func.isRequired,
 		searchWord: PropTypes.string.isRequired,
-		currentShelves: PropTypes.array.isRequired
+		currentShelves: PropTypes.array.isRequired,
+		updateShelf: PropTypes.func.isRequired
 	}
 	
 	defaultValue = "none";
@@ -33,7 +34,7 @@ class SearchPage extends React.Component {
 	}
 	
 	render() {
-		const { searchList, updateInput, searchWord, currentShelves  } = this.props;
+		const { searchList, updateInput, searchWord, currentShelves, updateShelf  } = this.props;
 		
 		return (			
 				<div className="search-books">
@@ -59,7 +60,8 @@ class SearchPage extends React.Component {
 					<ol className="books-grid">								
 						{searchList.length > 0 && searchList.map((eachBooks, index) => (
 							<ListItems key={index} id={eachBooks.id} data={eachBooks} 
-							currentShelves={currentShelves} value={this.findProperValue(currentShelves, eachBooks.id)}
+							value={this.findProperValue(currentShelves, eachBooks.id)}
+							updateShelf={updateShelf}
 							/>
 						))}
 					</ol>

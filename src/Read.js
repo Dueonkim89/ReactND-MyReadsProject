@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 
 class ReadBookShelf extends React.Component {
 	static propTypes = {
-		currentShelves: PropTypes.array.isRequired
+		currentShelves: PropTypes.array.isRequired,
+		updateShelf: PropTypes.func.isRequired
 	}
 	
 	defaultValue = "read";
 	
 	render() {
-		const {	currentShelves	} = this.props;
+		const {	currentShelves, updateShelf	} = this.props;	
 		return (
 			<div className="bookshelf"> 
 			  <h2 className="bookshelf-title">Read</h2>
@@ -18,8 +19,8 @@ class ReadBookShelf extends React.Component {
 				<ol className="books-grid">
 
 				{ currentShelves.filter((shelf) => shelf.shelf === this.defaultValue).map((eachShelf, index) => (
-					<ListItems key={index} id={eachShelf.id} data={eachShelf} currentShelves={currentShelves}
-					value={this.defaultValue}
+					<ListItems key={index} id={eachShelf.id} data={eachShelf} 
+					value={this.defaultValue} updateShelf={updateShelf}
 					/>
 				)) }				
 				
