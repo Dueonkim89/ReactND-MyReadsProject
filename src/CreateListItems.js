@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class ListItems extends React.Component {
+class CreateListItems extends React.Component {
 	static propTypes = {
 		data: PropTypes.object.isRequired,
 		id: PropTypes.string.isRequired,
@@ -10,8 +10,12 @@ class ListItems extends React.Component {
 	}		
 	
 	state = {
-		value: this.props.value
+		value: ''
 	}
+	
+	componentDidMount() {
+		this.setState({ value: this.props.value });
+	}	
 
 	handleChange = (newValue, data) => {
 	//first set this.state.value to new value.
@@ -47,4 +51,4 @@ class ListItems extends React.Component {
 	}	
 }
 
-export default ListItems;
+export default CreateListItems;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import ListItems from './CreateListItems.js';
+import CreateListItems from './CreateListItems.js';
 
 class SearchPage extends React.Component {
 	static propTypes = {
@@ -59,7 +59,7 @@ class SearchPage extends React.Component {
 					{/*Map in array of API data to create list items for OL */}
 					<ol className="books-grid">								
 						{searchList.length > 0 && searchList.map((eachBooks, index) => (
-							<ListItems key={index} id={eachBooks.id} data={eachBooks} 
+							<CreateListItems key={index} id={eachBooks.id} data={eachBooks} 
 							value={this.findProperValue(currentShelves, eachBooks.id)}
 							updateShelf={updateShelf}
 							/>

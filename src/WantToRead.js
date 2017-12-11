@@ -1,5 +1,5 @@
 import React from 'react';
-import ListItems from './CreateListItems.js';
+import CreateListItems from './CreateListItems.js';
 import PropTypes from 'prop-types';
 
 class WantToReadBookShelf extends React.Component {
@@ -19,7 +19,7 @@ class WantToReadBookShelf extends React.Component {
 				<ol className="books-grid">
 				
 				{ currentShelves.filter((shelf) => shelf.shelf === this.defaultValue).map((eachShelf, index) => (
-					<ListItems key={index} id={eachShelf.id} data={eachShelf}
+					<CreateListItems key={index} id={eachShelf.id} data={eachShelf}
 					value={this.defaultValue} updateShelf={updateShelf}
 					/>
 				)) }				
