@@ -5,7 +5,6 @@ import CreateListItems from './CreateListItems.js';
 
 class SearchPage extends React.Component {
 	static propTypes = {
-		searchList: PropTypes.array.isRequired,
 		updateInput: PropTypes.func.isRequired,
 		searchWord: PropTypes.string.isRequired,
 		currentShelves: PropTypes.array.isRequired,
