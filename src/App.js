@@ -42,7 +42,8 @@ class BooksApp extends React.Component {
 			//set shelf of book to new shelf
 			book.shelf = shelf;
 			this.setState((previousState) => ({
-	//change this.state.currentShelves to filter out old book and add [book] with new .shelf property
+				/*change this.state.currentShelves to filter out old book and add 
+				book object inside an array with new .shelf property */
 				currentShelves: previousState.currentShelves.filter(b => b.id !== book.id).concat([book])
 			}))				
 		})			

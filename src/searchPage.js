@@ -59,7 +59,7 @@ class SearchPage extends React.Component {
 					{/*Map in array of API data to create list items for OL */}
 					<ol className="books-grid">								
 						{searchList.length > 0 && searchList.map((eachBooks, index) => (
-							<CreateListItems key={index} id={eachBooks.id} data={eachBooks} 
+							<CreateListItems key={eachBooks.id} id={eachBooks.id} data={eachBooks} 
 							value={this.findProperValue(currentShelves, eachBooks.id)}
 							updateShelf={updateShelf}
 							/>

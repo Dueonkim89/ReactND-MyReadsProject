@@ -19,7 +19,7 @@ class WantToReadBookShelf extends React.Component {
 				<ol className="books-grid">
 				
 				{ currentShelves.filter((shelf) => shelf.shelf === this.defaultValue).map((eachShelf, index) => (
-					<CreateListItems key={index} id={eachShelf.id} data={eachShelf}
+					<CreateListItems key={eachShelf.id} id={eachShelf.id} data={eachShelf}
 					value={this.defaultValue} updateShelf={updateShelf}
 					/>
 				)) }				

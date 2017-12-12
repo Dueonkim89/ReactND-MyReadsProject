@@ -23,7 +23,7 @@ class CurrentlyReadingBookShelf extends React.Component {
 					over new array to create the appropriate list items.		
 				*/}
 				{ currentShelves.filter((shelf) => shelf.shelf === this.defaultValue).map((eachShelf, index) => (
-					<CreateListItems key={index} id={eachShelf.id} data={eachShelf} 
+					<CreateListItems key={eachShelf.id} id={eachShelf.id} data={eachShelf} 
 						value={this.defaultValue} updateShelf={updateShelf}
 					/>
 				)) }
