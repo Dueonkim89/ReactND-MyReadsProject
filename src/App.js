@@ -32,7 +32,6 @@ class BooksApp extends React.Component {
 	/*To load info from server when mounted */
 	componentDidMount() {
 		BooksAPI.getAll().then((books) => {
-			console.log(books);
 			this.setState({ currentShelves: books });
 		})
 	}
@@ -40,13 +39,12 @@ class BooksApp extends React.Component {
 	updateShelf = (book, shelf) => {
 		/* run .update API function in here. we will receive a promise from this func.*/
 		BooksAPI.update(book, shelf).then((books) => {
-			console.log(books);
-			// promise is an object with 3 arrays for each shelf 
-			//	Lazy man's way, just call getAll() instead of updating this.state.currentShelves
-			//Let React do the heavy lifting for us!
-			BooksAPI.getAll().then((books) => {
-				this.setState({ currentShelves: books });
-			})		
+			//set shelf of book to new shelf
+			book.shelf = shelf;
+			this.setState((previousState) => ({
+	//change this.state.currentShelves to filter out old book and add [book] with new .shelf property
+				currentShelves: previousState.currentShelves.filter(b => b.id !== book.id).concat([book])
+			}))				
 		})			
 	}
 	
