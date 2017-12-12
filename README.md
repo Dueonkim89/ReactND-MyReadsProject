@@ -3,6 +3,8 @@ In this project, React.js was used to create a mini library via components and s
 
 Library will contain 3 different shelves to hold books. Books can be rearranged to different shelves or removed by user interaction.
 
+Search page allows user to look for books and add those books to the library.
+
 Search queries in search page is LIMITED, please see [SEARCH_TERMS.md](SEARCH_TERMS.md) for more details.
 
 React-router-dom was used to route to the different URLS of the page. 
