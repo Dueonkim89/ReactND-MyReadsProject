@@ -13,6 +13,8 @@ class CreateListItems extends React.Component {
 		value: ''
 	}
 	
+	noThumbNailURL = "http://via.placeholder.com/128x192?text=No%20Cover";
+	
 	componentDidMount() {
 		this.setState({ value: this.props.value });
 	}	
@@ -24,13 +26,24 @@ class CreateListItems extends React.Component {
 		this.props.updateShelf(data, newValue);
 	}	
 	
-	render() {
+	render() {	
 		const { data } = this.props;
 		return (	
 				<li>
 					<div className="book">
 					<div className="book-top">
-						<div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${data.imageLinks.thumbnail})` }}></div>
+											
+						{ data.imageLinks !== undefined ? (
+							<div className="book-cover" style={{ width: 128, height: 192, 
+								backgroundImage: `url(${data.imageLinks.thumbnail})` }}>	
+							</div>		
+						) : (
+							<div className="book-cover" style={{ width: 128, height: 192, 
+								backgroundImage: `url(${this.noThumbNailURL})` }}>
+							</div>	
+						)}	
+																			
+						
 						<div className="book-shelf-changer">
 						<select value={this.state.value} onChange={(event) => this.handleChange(event.target.value, data)}>
 							<option value="none" disabled>Move to...</option>
